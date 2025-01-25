@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&display=swap');
+
+body {
+    background-color: black;
+    font-family: 'Josefin Sans', sans-serif;
+    color: white;
+    margin: 0;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0%;
+    position: fixed;
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.38);
+    z-index: 9999;
+}
+
+.menu {
+    display: flex;
+    gap: 30px;
+}
+
+.menu a {
+    color: white;
+    font-size: 40px;
+    text-decoration: none;
+}
+
+.menu a:hover {
+    color: orangered;
+}
+
+.bars, .navbar i {
+    color: white;
+}
+
+.services {
+    padding: 80px 40px;
+    margin: 0 7%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.heading_span {
+    font-size: 40px;
+    color: orangered;
+    background-color: black;
+    text-align: center;
+    padding: 10px;
+}
+
+.services_cards {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-bottom: 30px;
+    margin-top: 100px;
+    width: 100%;
+}
+
+.services_card {
+    background-color: rgba(77, 77, 77, 0.25);
+    padding: 20px;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+}
+
+.services_card:hover {
+    background-color: rgba(77, 77, 77, 0.63);
+}
+
+.services_card i {
+    font-size: 50px;
+    color: orangered;
+}
+
+.services_card:hover i {
+    color: white;
+}
+
+.services_card h3 {
+    font-size: 30px;
+    font-weight: 500;
+    margin: 20px 0;
+}
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    width: 48%;
+}
+
+.form-group label {
+    width: 30%;
+}
+
+.form-group input {
+    width: 70%;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    color: white;
+    border-radius: 4px;
+    outline: none;
+}
+
+.form-group input:focus {
+    box-shadow: inset 0 -5px 45px rgba(100, 100, 100, 0.4), 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+footer {
+    padding: 20px 0;
+    background-color: rgba(55, 55, 55, 0.48);
+    text-align: center;
+}

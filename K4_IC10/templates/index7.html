@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="style22.css">
+    <title>SSA Prediction</title>
+    <style>
+        body, h1, h4, label, input, button {
+            margin: 0; 
+            padding: 0; 
+            font-family: Arial, sans-serif; 
+            font-size: 24px;
+        }
+        #result-value {
+            margin: 0; 
+            padding: 0; 
+            font-family: Arial, sans-serif; 
+            font-size: 33px;
+        }
+
+        .navbar { 
+            background-color: #005f73; 
+            color: #fff; 
+            padding: 10px; 
+            text-align: center; 
+        }
+
+        .center-container { 
+            background-color: #e0f7fa; 
+            padding: 30px; /* Increased padding for more space */
+            text-align: center; 
+            border-radius: 8px; 
+        }
+
+        h1 { 
+            color: #fff; 
+            font-size: 28px; /* Increased font size for better visibility */
+            margin-bottom: 15px; /* Added bottom margin */
+        }
+
+        h4, h2 { 
+            color: #005f73; 
+            margin-bottom: 15px; /* Increased bottom margin */
+        }
+
+        .time-range-container {
+            display: flex;
+            justify-content: center; /* Center items horizontally */
+            align-items: center; /* Center items vertically */
+            margin: 30px 0; /* Increased vertical margin for spacing */
+            flex-wrap: wrap; /* Allow wrapping if needed */
+        }
+
+        .time-range {
+            margin: 0 15px; /* Increased horizontal margin between inputs */
+        }
+
+        .time-range-container h4 {
+            margin-right: 15px; /* Space between label and input */
+        }
+
+        .input-columns { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 10px; /* Added gap for spacing between columns */
+            margin-top: 20px; /* Increased margin for tighter layout */
+        }
+
+        .input-column {
+            margin: 0; /* Ensure no margin around input columns */
+        }
+
+        input[type="text"] {
+            padding: 10px; /* Increased padding for a larger input field */
+            margin: 5px 0; /* Added vertical margin for spacing between fields */
+            border: 1px solid #009688;
+            border-radius: 4px;
+            background-color: #e3f2fd;
+            color: #005f73;
+            width: 100%; /* Make the input field take full width of the column */
+            text-align: center; /* Center the text within the input */
+        }
+
+        button, input[type="submit"] {
+            background-color: #00796b; 
+            color: #fff; 
+            border: none; 
+            padding: 10px 20px; /* Increased padding for larger buttons */
+            margin-top: 15px; /* Increased margin for buttons */
+            cursor: pointer; 
+            border-radius: 4px; 
+            transition: background-color 0.3s;
+        }
+
+        button:hover, input[type="submit"]:hover { 
+            background-color: #004d40; 
+        }
+
+        #loading { 
+            display: none; 
+            color: #d32f2f; 
+            font-size: 16px; 
+            font-weight: bold; 
+        }
+        #result { 
+            margin-top: 30px; /* Increased margin for results */
+            padding: 25px; /* Increased padding for result area */
+            background-color: #b2dfdb; 
+            border-radius: 4px; 
+            color: #004d40; 
+            width: 300px; /* Increased width for a larger result area */
+            margin-left: auto; /* Center horizontally */
+            margin-right: auto; /* Center horizontally */
+        }
+        .button-container {
+            display: flex; /* Use flexbox for layout */
+            justify-content: space-between; /* Space between buttons */
+            margin-top: 20px; /* Increased margin for tighter layout */
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>HILBGM</h1>
+    </div>
+
+    <div class="center-container">
+        <h2>SSA_ML_IC10</h2>
+        <div class="Services_card">
+            <form id="predictionForm">
+                <div class="time-range-container">
+                    <div class="time-range">
+                        <input type="text" id="startDateTime" placeholder="Start Date & Time" class="flatpickr-datetime">
+                    </div>
+                    <div class="time-range">
+                        <input type="text" id="endDateTime" placeholder="End Date & Time" class="flatpickr-datetime">
+                    </div>
+                </div>
+                <div id="loading">Loading...</div>  
+
+                <div class="button-container">
+                    <button type="button" id="getDataBtn">Get Data</button>
+                    <input type="submit" value="Predict"> <!-- Moved Predict button above result -->
+                </div>
+
+                <div id="result"> <!-- Result section positioned here -->
+                    <h4>Result:</h4>
+                    <p id="result-value"></p>
+                </div>
+
+                <div class="input-column">
+                    <label>BA:</label>
+                    <input id="BA" type="text">
+                </div>
+                <div class="input-column">
+                    <label>Molochite:</label>
+                    <input id="Molochite" type="text">
+                </div>
+
+                <div class="input-columns">
+                    <div class="input-column">
+                        <label>NG:</label>
+                        <input id="NG" type="text">
+                    </div>
+                    <div class="input-column">
+                        <label>HZT:</label>
+                        <input id="HZT" type="text">
+                    </div>
+                    <div class="input-column">
+                        <label>Feed:</label>
+                        <input id="Feed" type="text">
+                    </div>
+                    <div class="input-column">
+                        <label>CO:</label>
+                        <input id="CO" type="text">
+                    </div>
+                    <div class="input-column">
+                        <label>EIP:</label>
+                        <input id="EIP" type="text">
+                    </div>
+                    <div class="input-column">
+                        <label>Cooler:</label>
+                        <input id="Cooler" type="text">
+                    </div>
+                    <div class="input-column">
+                        <label>FGT:</label>
+                        <input id="FGT" type="text">
+                    </div>
+                    <div class="input-column">
+                        <label>Stack:</label>
+                        <input id="Stack" type="text">
+                    </div>
+                    <div class="input-column">
+                        <label>RPM:</label>
+                        <input id="RPM" type="text">
+                    </div>
+                    <div class="input-column">
+                        <label>EOT:</label>
+                        <input id="EOT" type="text">
+                    </div>
+                    <div class="input-column">
+                        <label>EIT:</label>
+                        <input id="EIT" type="text">
+                    </div>
+                    <div class="input-column">
+                        <label>O2:</label>
+                        <input id="O2" type="text">
+                    </div>
+                    <div class="input-column">
+                        <label>PAP:</label>
+                        <input id="PAP" type="text">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        // Initialize Flatpickr for the correct IDs
+        flatpickr("#startDateTime, #endDateTime", { enableTime: true, dateFormat: "Y-m-d H:i", time_24hr: true });
+        
+        $('#getDataBtn').on('click', function() {
+            const fromTime = $('#startDateTime').val();
+            const toTime = $('#endDateTime').val();
+            $('#loading').show();
+            $.ajax({
+                url: '/get_data',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ From: fromTime, To: toTime }),
+                success: function(response) {
+                    $('#NG, #HZT, #Feed, #CO, #EIP, #Cooler, #FGT, #Stack, #RPM, #EOT, #EIT, #BA, #PAP, #Molochite, #O2').each(function() {
+                        const id = $(this).attr('id');
+                        $(this).val(response[id]);
+                    });
+                },
+                error: function(error) {
+                    console.error('Error fetching data:', error);
+                },
+                complete: function() {
+                    $('#loading').hide();
+                }
+            });
+        });
+
+        $('#predictionForm').on('submit', function(event) {
+            event.preventDefault();
+            const inputData = {
+                NG: $('#NG').val(),
+                HZT: $('#HZT').val(),
+                Feed: $('#Feed').val(),
+                CO: $('#CO').val(),
+                EIP: $('#EIP').val(),
+                Cooler: $('#Cooler').val(),
+                FGT: $('#FGT').val(),
+                Stack: $('#Stack').val(),
+                RPM: $('#RPM').val(),
+                EOT: $('#EOT').val(),
+                EIT: $('#EIT').val(),
+                BA: $('#BA').val(),
+                PAP: $('#PAP').val(),
+                Molochite: $('#Molochite').val(),
+                O2: $('#O2').val()
+            };
+            $('#loading').show();
+            $.ajax({
+                url: '/predict',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(inputData),
+                success: function(response) {
+                    $('#result-value').text(response.prediction);
+                },
+                error: function(error) {
+                    console.error('Error in prediction:', error);
+                },
+                complete: function() {
+                    $('#loading').hide();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
